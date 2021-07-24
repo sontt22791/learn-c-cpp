@@ -1,6 +1,7 @@
 # convert
 ```
-pandoc (get-item *.md).FullName -o readme.html
+pandoc (get-item ./docs/*.md).FullName -o book.html
+pandoc (get-item ./docs/*.md).FullName -o book.md
 ```
 
 # mục đích học
@@ -63,4 +64,4 @@ https://www.howkteam.vn/course/khoa-hoc-lap-trinh-c-can-ban/ham-co-doi-so-mac-di
 
 
 # All note
-[readme html](readme.html)
+[readme html](book.html)
