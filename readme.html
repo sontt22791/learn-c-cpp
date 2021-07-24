@@ -1,0 +1,235 @@
+<hr />
+<h1 id="tham-trị-tham-chiếu">tham trị/ tham chiếu</h1>
+<p>https://www.youtube.com/watch?v=hc6cyVrLIFc&amp;list=PLh91SaQgRYnp-NC3WnFDMWQV40a6m61Hr&amp;index=31</p>
+<p>https://nguyenvanhieu.vn/con-tro-va-ham-trong-c/</p>
+<p>https://nguyenvanhieu.vn/tham-chieu-va-tham-tri-trong-c/</p>
+<ul>
+<li><code>trong c ko có tham chiếu, tuy nhiên có 1 cách tương tự để truyền tham chiếu là dùng con trỏ =&gt; khi sử dụng fai truyền địa chỉ của biến (thay vì truyển biến)</code></li>
+</ul>
+<pre><code>#include &lt;stdio.h&gt;
+ 
+ 
+// Tham số đầu vào là 2 biến con trỏ kiểu int
+void swap(int *a, int *b){
+    // dùng * để lấy giá trị của biến mà con trỏ đang trỏ tới
+    printf(&quot;Ham con, truoc khi goi ham hoan vi, a = %d, b = %d\n&quot;, *a , *b);
+    // dùng * để lấy giá trị của biến mà con trỏ a đang trỏ tới và gán cho biến `tmp`
+    int tmp = *a; 
+    // sửa giá trị của biến mà con trỏ a đang trỏ tới,
+    // bằng giá trị của biến mà con trỏ b đang trỏ tới
+    *a = *b; 
+    // sửa giá trị của biến mà con trỏ a đang trỏ tới,
+    // bằng giá trị của của biến con trỏ a đang trỏ tới, đang được lưu trong `tmp`
+    *b = tmp;
+    // dùng * để lấy giá trị của biến mà con trỏ đang trỏ tới
+    printf(&quot;Ham con, sau khi goi ham hoan vi, a = %d, b = %d\n&quot;, *a , *b);
+}
+ 
+int main(){
+    int a = 5, b = 7;
+    printf(&quot;Ham main, truoc khi goi ham hoan vi, a = %d, b = %d\n&quot;, a , b);
+    
+    // Do tham số hàm là 2 con trỏ, ta cần truyền vào địa chỉ
+    // Dùng &amp; để lấy địa chỉ của biến.
+    swap(&amp;a, &amp;b);
+    printf(&quot;Ham main, sau khi goi ham hoan vi, a = %d, b = %d\n&quot;, a , b);
+}</code></pre>
+<ul>
+<li>trong c++ có cải tiến là truyền tham chiếu =&gt; chỉ cần sửa tham số của hàm thành &amp;a, &amp;b =&gt; lúc sử dụng chỉ cần truyền tên biến là đc.</li>
+</ul>
+<pre><code>
+#include &lt;stdio.h&gt;
+ 
+void Swap(int &amp;a, int &amp;b){
+    int tmp = a;
+    a = b;
+    b = tmp;
+}
+ 
+void increment(int &amp;n){
+    n++;
+}
+ 
+int main(){
+    int first, second;
+ 
+    printf(&quot;\nNhap first = &quot;); scanf(&quot;%d&quot;, &amp;first);
+    printf(&quot;\nNhap second = &quot;); scanf(&quot;%d&quot;, &amp;second);
+ 
+    printf(&quot;\nfirst = %d, second = %d&quot;, first, second);
+    increment(first);
+    increment(second);
+    Swap(first, second);
+    printf(&quot;\nfirst = %d, second = %d&quot;, first, second);
+ 
+ 
+}</code></pre>
+<ul>
+<li>khi dùng tham trị, c++ sẽ tạo ra 1 bản sao của biến, và sửa đổi trên bản sao đó =&gt; ko ảnh hưởng đến biến gốc</li>
+</ul>
+<p>điểm khác nhau giữa truyền con trỏ và truyền tham chiếu: - khi dùng con trỏ (trong c) =&gt; hệ thống sẽ thao tác trên con trỏ của biến =&gt; vì vậy khi sử dụng fai truyền &amp;a =&gt; trong function để gọi giá trị fai dùng *a - khi dùng tham chiếu (trong c++, đây là cải tiến của c++, ko có trong c) =&gt; hệ thống sẽ reference đến biến đó luôn mà k tạo ra bản sao nữa =&gt; vì vậy khi sử dụng chỉ cần truyền biến a =&gt; trong func để gọi giá trị chỉ cần gọi a bth</p>
+<h1 id="pointers">pointers</h1>
+<p>Difference between ++<em>p, </em>p++ and *++p in C: - (must read) https://stackoverflow.com/questions/8208021/how-to-increment-a-pointer-address-and-pointers-value - https://www.tutorialspoint.com/difference-between-plusplus-p-pplusplus-and-plusplusp-in-c</p>
+<p>giải thích trường hợp *p++</p>
+<pre><code>int main(int argc, char const *argv[])
+{
+    // return 0;
+    int a = 5;
+    int *p = &amp;a;
+    cout &lt;&lt; &quot;*p++ &quot; &lt;&lt; *p++ &lt;&lt; endl; // &lt;=&gt; *(p++)</code></pre>
+<p>=&gt; code trên print ra 5 =&gt; tại sao</p>
+<p>test thử trường hợp:</p>
+<pre><code>#include&lt;iostream&gt;
+
+
+using namespace std;
+
+int main(int argc, char const *argv[])
+{
+    // return 0;
+    int i = 5;
+    cout &lt;&lt; i++ &lt;&lt; endl; // print 5
+    cout &lt;&lt; i++ &lt;&lt; endl; // print 6
+    cout &lt;&lt; i &lt;&lt; endl; // print 7
+}</code></pre>
+<p>theo code trên sẽ thấy i++ sẽ return giá trị cũ, sau đó mới tăng lên 1 đơn vị</p>
+<p>=&gt; vì vậy <em>p++ sẽ return giá trị của p (do là </em>p) và sẽ tăng con trỏ đến ô nhớ tiếp theo.</p>
+<p>=&gt; vì vậy khi tăng giá trị lên 1 =&gt; nên dùng (<em>p)++ hoặc </em>p += 1 để đảm bảo</p>
+<p>=&gt; chú ý cả thứ tự ưu tiên của *, ++ ở trước , ++ ở sau , () (đọc 2 link ở trên)</p>
+<h1 id="array">array</h1>
+<p>Có thể thấy giá trị của arr chính là địa chỉ của phần tử đầu tiên trong mảng (arr trỏ tới địa chỉ của arr[0]), nên có thể coi arr giống như 1 con trỏ.</p>
+<p>Lưu ý: <code>arr không phải là một con trỏ mà arr được dùng giống như một con trỏ.</code></p>
+<p>https://codelearn.io/learning/cpp-advanced/671941 =&gt; đọc bài này để hiểu các loại cấp phát bộ nhớ trong c++ (3 loại: tĩnh=&gt; global, động, tự động)</p>
+<ul>
+<li>ko nên dùng kiểu code cấp phát bộ nhớ k biết trước như dưới đây (vì nó chỉ hỗ trợ 1 số trình biên dịch có VLA)</li>
+</ul>
+<pre><code>int n;
+cin &gt;&gt; n;
+int arr[n];</code></pre>
+<ul>
+<li><p>để tránh nhầm lẫn khi sử dụng * lúc khai báo và lúc lấy giá trị, nên để <code>int* p</code> khi khai báo và <code>*p</code> khi lấy giá trị (* đặt cạnh kiểu dữ liệu khi khai báo, * đặt cạnh biến khi lấy giá trị)</p></li>
+<li><code>int* &amp;arr</code> =&gt; tham chiếu đến địa chỉ của biến arr (biến arr là 1 con trỏ)</li>
+<li><p>chú ý khi truyền array vào hàm =&gt; nó truyền giá trị của biến array đó (giá trị của array = địa chỉ của phần tử đầu tiên) =&gt; vì vậy khi update array ở trong hàm thì array ở ngoài main cũng đc update theo. tuy nhiên để cấp phát bộ nhớ mới trong hàm (tương đương với thay đổi array) =&gt; ta cần truyền vào func tham chiếu / con trỏ của biến.</p></li>
+<li><p>xem lại vấn đề memory leaks khi cấp phát đi phát lại bộ nhớ https://codelearn.io/learning/cpp-advanced/682708 https://codelearn.io/learning/cpp-advanced/658534 https://www.howkteam.vn/course/khoa-hoc-lap-trinh-c-can-ban/cap-phat-dong-trong-c-dynamic-memory-allocation-2734</p></li>
+</ul>
+<h1 id="struct">struct</h1>
+<p>size of struct: https://codelearn.io/learning/cpp-advanced/691542</p>
+<p>đọc thì k hiểu lắm, nhưng cách tính thì có các bước sau: - bắt đầu từ 0 - index của phần tử tiếp theo fai chia hết cho (sizeof(kiểu dữ liệu đó)) - sau đó cộng 1 =&gt; size struct</p>
+<pre><code>struct MyStruct
+{
+    char a; // 0
+    int b; // 4 - 7 (do phải chia hết cho 4)
+    short c; // 8-9
+    short d; // 10-11
+    double e; // 16-23 (do fai chia hết cho 8)
+};
+
+
+struct MyStruct
+{
+    char a; // 0
+    short b; // 2-3 (fai chia het cho 2)
+    short c; // 4-5
+    char d; // 6
+    short e; // 8-9 (fai chia het cho 2)
+    inf f; // 12- 15 (fai chia het cho 4)
+};
+
+
+struct MyStruct
+{
+    char a; // 0
+    char d; // 1
+    short b; // 2-3
+    short c; // 4-5
+    short e; // 6-7
+    int f; // 8-11 (do fai chia hết cho 4)
+};
+</code></pre>
+<h1 id="namespacee">namespacee</h1>
+<p>https://viblo.asia/p/namespace-trong-c-XL6lAv0R5ek</p>
+<ul>
+<li><p>namespace dùng trong trường hợp cần phân biệt các function, variable có tên giống nhau (có thể giữa các file)</p></li>
+<li>vậy trong trường hợp có 2 namespace trùng tên, trùng tên function thì sao?</li>
+</ul>
+<pre><code>đơn giản là nó sẽ merge 2 namespace đó (coi nó như chung trong 1 namespace)
+đối vs func cùng tên thì c++ sẽ coi như nạp chồng hàm  =&gt; vì vậy nếu hàm có tên hàm + kiểu return + tham số giống nhau thì nó sẽ báo lỗi redefine</code></pre>
+<ul>
+<li>có thể dùng nested namespace</li>
+</ul>
+<pre><code>namespace file1{
+    namespace file2{
+    }
+}</code></pre>
+<h1 id="template">template</h1>
+<p>https://codelearn.io/sharing/template-trong-cpp-la-gi-phan-1 https://nguyenvanhieu.vn/template-trong-c/</p>
+<ul>
+<li>Template (khuôn mẫu) là một từ khóa trong C++, và là một kiểu dữ liệu trừu tượng tổng quát hóa cho các kiểu dữ liệu int, float, double, bool…</li>
+<li>Template giúp người lập trình định nghĩa tổng quát cho hàm và lớp thay vì phải nạp chồng (overloading) cho từng hàm hay phương thức với những kiểu dữ liệu khác nhau.</li>
+</ul>
+<h1 id="oop">OOP</h1>
+<h2 id="class">class</h2>
+<ul>
+<li>public, private, protected</li>
+<li>constructor =&gt; contructor fai dùng public =&gt; contructor là 1 phương thức đặc biệt, đc gọi khi khởi tạo (kiểu như init trong python?) =&gt; constructor ko cần định nghĩa kiểu trả về và có tên trùng vs tên class</li>
+<li>destructor =&gt; ~Student() {} =&gt; func thực hiện sau khi đóng ctr, thoát class,…</li>
+</ul>
+<h2 id="static">static</h2>
+<ul>
+<li>pthuc tĩnh chỉ gọi đc các phương thức tĩnh hoặc biến tĩnh khác (trong cùng 1 lớp)</li>
+<li><p>pthuc tĩnh có thể gọi mà k cần khởi tạo object</p></li>
+<li><p>nạp chồng phương thức là dùng hàm cùng tên nhưng khác kiểu hoặc tham số</p></li>
+</ul>
+<h2 id="tính-đóng-gói">tính đóng gói</h2>
+<p>=&gt; giúp code rõ ràng hơn, tránh set sai,..</p>
+<h2 id="tính-kế-thừa">tính kế thừa</h2>
+<ul>
+<li><p>có thể thay đổi phạm vi khi kế thừa =&gt; vd set sang protected , private =&gt; các thuộc tính và phương thức (attribues, methods) của parent class sẽ đc chuyển sang phạm vi khác</p></li>
+<li>contructor của class con luôn gọi đến contructor của class cha.<br />
+nếu k chỉ rõ (set :Parent(…)) thì class con luôn gọi đến contructor mặc định (contructor k có tham số)<br />
+=&gt; nếu class cha có contructor có tham số mà k có contructor mặc định (ko có tham số) =&gt; class con bắt buộc fai gọi đến contructor nào đó của class cha.</li>
+</ul>
+<pre><code>Student(string name, string gender, int gpa) : Person(name, gender) { this-&gt;gpa = gpa;}
+Student(int gpa) : Person(&quot;Default&quot;,&quot;male&quot;) { this-&gt;gpa = gpa;} // default và male là giá trij bất kỳ</code></pre>
+<ul>
+<li>có thể ghi đè method. khi ghi đè có thể gọi lại method của class cha băngf cách:</li>
+</ul>
+<pre><code>Person::display()</code></pre>
+<ul>
+<li>tránh lỗi include nhiều lần:</li>
+</ul>
+<pre><code>#pragma once</code></pre>
+<p>hoặc</p>
+<pre><code>#ifndef PERSON_CPP
+#define PERCON_CPP
+class Person {
+};
+#endif</code></pre>
+<h1 id="tính-đa-hình">tính đa hình</h1>
+<ul>
+<li><p>Khi khai báo hàm ảo với từ khóa virtual nghĩa là hàm này sẽ được gọi theo loại đối tượng được trỏ (hoặc tham chiếu), chứ không phải theo loại của con trỏ (hoặc tham chiếu) https://nguyenvanhieu.vn/tinh-da-hinh-trong-lap-trinh-huong-doi-tuong/</p></li>
+<li><p>https://nguyenvanhieu.vn/tinh-da-hinh-trong-lap-trinh-huong-doi-tuong/ =&gt; virtual đọc đây dễ hiểu hơn =&gt; theo mình hiểu mục đích của việc up/downcasting là để chỉ cần tạo con trỏ ở base class, sau đó khi gọi nó sẽ tự biết gọi đến class con.</p></li>
+<li>Lưu ý: end() không phải là iterator trỏ tới phần tử cuối cùng mà trỏ tới sau phần tử cuối cùng.</li>
+<li><p>begin() và end(), hai phương thức này sẽ trả về con trỏ của phần tử thứ nhất và con trỏ ở sau phần tử cuối cùng.</p></li>
+</ul>
+<h1 id="compare">compare</h1>
+<p><a href="&#39;./08-comparelib.xlsx&#39;">08-compare lib.xlsx</a></p>
+<h1 id="bitwise">bitwise</h1>
+<p>(https://codelearn.io/learning/cpp-advanced/673946)</p>
+<ul>
+<li>kích thước kiểu char là 1 byte mà 1 byte = 8 bit</li>
+<li>bitwise giúp chạy nhanh hơn (vd trường hợp xác định chẵn lẻ) =&gt; nhưng cần fai biết lý thuyết về nhị phân =&gt; tìm hiểu sau</li>
+<li>cách chuyển đổi các hệ: https://codelearn.io/sharing/cach-chuyen-doi-cac-he-so-dem</li>
+</ul>
+<h1 id="helpful-links">helpful links</h1>
+<p>https://codelearn.io/sharing/13-ham-thong-dung-trong-vector</p>
+<p>https://codelearn.io/sharing/cai-vscode-lap-trinh-cpp-de-nhat</p>
+<p>https://viettuts.vn/lap-trinh-cpp/modifier-trong-cpp (chưa hiểu.tuy nhiên mình lưu lại vì mình thấy trong các func của larod hay để tham số là const type xxx =&gt; mình search thì mn có bảo là để đảm bảo biến k bị thay đổi trong hàm https://stackoverflow.com/questions/18797253/why-using-const-for-arguments-passed-by-value)</p>
+<p>https://vimentor.com/vi/lesson/doi-so-tham-so-mac-dinh-trong-c =&gt; có thể set giá trị mặc định cho tham số trong hàm</p>
+<p>https://vimentor.com/vi/lesson/tra-ve-tham-chieu-trong-c =&gt; trả về tham chiếu</p>
+<p>https://dev.to/alexomeyer/top-6-vs-code-extensions-to-organise-your-code-3mbi</p>
+<p>https://nguyenvanhieu.vn/su-khac-nhau-giua-c-va-cpp/</p>
+<h1 id="convert">convert</h1>
+<pre><code>pandoc (get-item *.md).FullName -o readme.html</code></pre>
+<h1 id="final-note">final note</h1>
+<p><a href="&#39;./readme.html">readme.html</a></p>
