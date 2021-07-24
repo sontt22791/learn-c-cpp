@@ -2,5 +2,5 @@
 - begin() và end(), hai phương thức này sẽ trả về con trỏ của phần tử thứ nhất và con trỏ ở sau phần tử cuối cùng.
 
 # compare
-[08-compare lib.xlsx]('./08-comparelib.xlsx')
+[summary vector, list, set, map, stack, queue](08-comparelib.xlsx)
 

@@ -63,4 +63,4 @@ https://www.howkteam.vn/course/khoa-hoc-lap-trinh-c-can-ban/ham-co-doi-so-mac-di
 
 
 # All note
-[readme.html]('./readme.html)
+[readme html](readme.html)
