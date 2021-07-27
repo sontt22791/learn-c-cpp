@@ -24,6 +24,8 @@ sau đó mình học C++, mình đã học lộ trình này, nhưng mình nghĩ 
 6. https://codelearn.io/learning/thu-vien-chuan-cpp => học các lib về vector, list, set, map, stack, queue
 7. https://www.howkteam.vn/course/khoa-hoc-lap-trinh-c-can-ban/vong-lap-for-each-trong-c11-for-each-loops-2700 => có tgian thì nên đọc thêm khóa này để củng cố kiến thức (mình mới đọc vài bài mà các khóa trước k nói, vd như for-each này)
 
+
+Ngoài ra có thể tham khảo thêm ở https://daynhauhoc.com/t/tong-hop-khoa-hoc-lap-trinh-c-danh-cho-nguoi-moi-bat-dau/29429 (khi search về libary mình thấy course này, => có vẻ đầy đủ thông tin hơn các khóa mình đã học ở trên)
 # Note quan trọng:
 
 ## 1. constructor trong class
